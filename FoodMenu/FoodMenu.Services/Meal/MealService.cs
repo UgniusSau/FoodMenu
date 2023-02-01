@@ -9,6 +9,7 @@ namespace FoodMenu.Services
     {
         private const string GetMealByNameLink = @"https://www.themealdb.com/api/json/v1/1/search.php?s={0}";
         private const string GetMealByCategoryLink = @"https://www.themealdb.com/api/json/v1/1/filter.php?c={0}";
+        private const string GetMealByAreaLink = @"https://www.themealdb.com/api/json/v1/1/filter.php?a={0}";
 
         private readonly HttpClient _httpClient;
 
@@ -16,7 +17,6 @@ namespace FoodMenu.Services
         {
             _httpClient = httpClient;
         }
-
 
         public async Task<Meal?> GetMeal(string name)
         {
@@ -39,6 +39,21 @@ namespace FoodMenu.Services
         public async Task<IList<string>> GetMealsByCategory(string category, int count)
         {
             var response = await _httpClient.GetAsync(string.Format(GetMealByCategoryLink, category));
+
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
+
+            return mealContainer?.Meals.Select(x => x?.Name).Take(count).ToList()!;
+        }
+
+        public async Task<IList<string>> GetMealsByArea(string area, int count)
+        {
+            var response = await _httpClient.GetAsync(string.Format(GetMealByAreaLink, area));
 
             if (!response.IsSuccessStatusCode)
             {

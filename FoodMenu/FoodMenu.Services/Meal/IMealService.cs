@@ -6,5 +6,6 @@ namespace FoodMenu.Services
     {
         Task<Meal?> GetMeal(string name);
         Task<IList<string>> GetMealsByCategory(string category, int count);
+        Task<IList<string>> GetMealsByArea(string area, int count);
     }
 }
