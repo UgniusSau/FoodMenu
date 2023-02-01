@@ -10,6 +10,6 @@ namespace FoodMenu.Data.Models
     public class MealResponse
     {
         [JsonProperty("meals")]
-        public List<Meal> meals { get; set; }
+        public List<Meal> Meals { get; set; }
     }
 }

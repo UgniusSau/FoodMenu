@@ -8,6 +8,9 @@ namespace FoodMenu.Controllers
     [Route("api/v1/meals")]
     public class FoodMenuController : ControllerBase
     {
+        const int categoryFilteredMealLimit = 5;
+        const int areaFilteredMealLimit = 3;
+
         private readonly IMealService _mealService;
 
         public FoodMenuController(IMealService mealService)
@@ -25,6 +28,8 @@ namespace FoodMenu.Controllers
                 {
                     return BadRequest("Meal not found.");
                 }
+
+                meal.MealsByCategory = await _mealService.GetMealsByCategory(meal.Category, categoryFilteredMealLimit);
 
                 return meal;
             }
