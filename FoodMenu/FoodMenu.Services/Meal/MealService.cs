@@ -1,21 +1,12 @@
-﻿using FoodMenu.Data.Models;
-using FoodMenu.Repositories;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FoodMenu.Services
+namespace FoodMenu.Services.Meal
 {
-    public class MealService : IMealService
+    internal class MealService
     {
-
-        private readonly IMealRepository _mealRepository;
-
-        public MealService(IMealRepository mealRepository)
-        {
-            _mealRepository = mealRepository;
-        }
-        public IQueryable<Meal> GetMeal()
-        {
-            return _mealRepository.GetMeal();
-        }
-
     }
 }

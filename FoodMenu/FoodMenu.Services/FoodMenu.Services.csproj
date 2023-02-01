@@ -1,14 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FoodMenu.Data\FoodMenu.Data.csproj" />
-    <ProjectReference Include="..\FoodMenu.Repositories\FoodMenu.Repositories.csproj" />
-  </ItemGroup>
 
 </Project>

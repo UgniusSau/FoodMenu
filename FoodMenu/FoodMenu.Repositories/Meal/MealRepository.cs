@@ -1,17 +1,12 @@
-﻿using FoodMenu.Data.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FoodMenu.Repositories
+namespace FoodMenu.Repositories.Meal
 {
-    public class MealRepository : IMealRepository
+    internal class MealRepository
     {
-        public IQueryable<Meal> GetMeal()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

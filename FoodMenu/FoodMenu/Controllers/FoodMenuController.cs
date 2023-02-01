@@ -1,5 +1,4 @@
 using FoodMenu.Data.Models;
-using FoodMenu.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FoodMenu.Controllers
@@ -8,20 +7,23 @@ namespace FoodMenu.Controllers
     [Route("api/v1/[controller]")]
     public class FoodMenuController : ControllerBase
     {
-        private readonly IMealService _mealService;
 
-        public FoodMenuController(IMealService mealService)
-        {
-            _mealService = mealService;
-        }
 
         [HttpGet("{name}")]
         public async Task<ActionResult<Meal>> GetMeal(string name)
         {
-            var result = _mealService.GetMeal();
+            try
+            {
+                
 
-            if (!result.Any()) return NotFound();
-            return Ok(result);
+                //change this later to correct return
+                return StatusCode(200);
+            }
+            
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

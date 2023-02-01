@@ -1,9 +1,12 @@
-﻿using FoodMenu.Data.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace FoodMenu.Services
+namespace FoodMenu.Services.Meal
 {
-    public interface IMealService
+    internal interface IMealService
     {
-        public IQueryable<Meal> GetMeal();
     }
 }
