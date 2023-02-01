@@ -23,6 +23,7 @@ namespace FoodMenu.Data.Models
         public string Area { get; set; }
 
         public IList<string> MealsByCategory { get; set; }
+        public IList<string> MealsByArea { get; set; }
 
     }
 }

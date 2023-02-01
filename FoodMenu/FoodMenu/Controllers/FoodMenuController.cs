@@ -30,6 +30,7 @@ namespace FoodMenu.Controllers
                 }
 
                 meal.MealsByCategory = await _mealService.GetMealsByCategory(meal.Category, categoryFilteredMealLimit);
+                meal.MealsByArea = await _mealService.GetMealsByArea(meal.Area, areaFilteredMealLimit);
 
                 return meal;
             }
