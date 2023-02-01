@@ -23,7 +23,7 @@ namespace FoodMenu.Controllers
                 var meal = await _mealService.GetMeal(name);
                 if (meal == null)
                 {
-                    return NotFound();
+                    return BadRequest("Meal not found.");
                 }
 
                 return meal;

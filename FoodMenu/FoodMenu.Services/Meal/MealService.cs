@@ -1,11 +1,5 @@
 ﻿using FoodMenu.Data.Models;
-using FoodMenu.Repositories;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FoodMenu.Services
 {
@@ -31,6 +25,8 @@ namespace FoodMenu.Services
 
             var responseContent = await response.Content.ReadAsStringAsync();
             var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
+            if(mealContainer.meals == null)
+                return null;
             return mealContainer.meals[0];
         }
     }
