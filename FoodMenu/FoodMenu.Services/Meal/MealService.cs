@@ -48,7 +48,7 @@ namespace FoodMenu.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
 
-            return mealContainer?.Meals.Select(x => x?.Name).Take(count).ToList()!;
+            return mealContainer?.Meals.Select(meal => meal?.Name).Take(count).ToList()!;
         }
 
         public async Task<IList<string>> GetMealsByArea(string area, int count)
@@ -63,7 +63,7 @@ namespace FoodMenu.Services
             var responseContent = await response.Content.ReadAsStringAsync();
             var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
 
-            return mealContainer?.Meals.Select(x => x?.Name).Take(count).ToList()!;
+            return mealContainer?.Meals.Select(meal => meal?.Name).Take(count).ToList()!;
         }
     }
 }
