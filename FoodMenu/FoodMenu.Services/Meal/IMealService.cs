@@ -4,8 +4,8 @@ namespace FoodMenu.Services
 {
     public interface IMealService
     {
-        Task<Meal?> GetMeal(string name);
-        Task<IList<string>> GetMealsByCategory(string category, int count);
-        Task<IList<string>> GetMealsByArea(string area, int count);
+        Task<Meal?> GetMealDetails(string name);
+        Task<IList<Meal>> GetMealsByCategory(string category, int count);
+        Task<IList<Meal>> GetMealsByArea(string area, int count);
     }
 }

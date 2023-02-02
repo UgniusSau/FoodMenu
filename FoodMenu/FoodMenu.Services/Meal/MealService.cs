@@ -1,6 +1,7 @@
 ﻿using FoodMenu.Data.Models;
 using Newtonsoft.Json;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Xml.Linq;
 
 namespace FoodMenu.Services
@@ -18,25 +19,25 @@ namespace FoodMenu.Services
             _httpClient = httpClient;
         }
 
-        public async Task<Meal?> GetMeal(string name)
+        public async Task<Meal> GetMealDetails(string name)
         {
             var response = await _httpClient.GetAsync(string.Format(GetMealByNameLink, name));
-            
+
             if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
-            
-            if(mealContainer.Meals == null)
+            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
+
+            if (mealContainer.Meals == null)
                 return null;
 
             return mealContainer.Meals[0];
         }
 
-        public async Task<IList<string>> GetMealsByCategory(string category, int count)
+        public async Task<IList<Meal>> GetMealsByCategory(string category, int count)
         {
             var response = await _httpClient.GetAsync(string.Format(GetMealByCategoryLink, category));
 
@@ -46,12 +47,28 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
+            if (mealContainer == null)
+            {
+                // can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
+                mealContainer.Meals = new List<Meal>();
+            }
+            else
+            {
+                mealContainer.Meals = mealContainer.Meals.Take(count).ToList();
+            }
 
-            return mealContainer?.Meals.Select(meal => meal?.Name).Take(count).ToList()!;
+            mealContainer.Meals.ForEach(meal =>
+            {
+                var mealDetails = GetMealDetails(meal.Name).Result;
+                meal.Category = mealDetails.Category;
+                meal.Area = mealDetails.Area;
+            });
+
+            return mealContainer.Meals;
         }
 
-        public async Task<IList<string>> GetMealsByArea(string area, int count)
+        public async Task<IList<Meal>> GetMealsByArea(string area, int count)
         {
             var response = await _httpClient.GetAsync(string.Format(GetMealByAreaLink, area));
 
@@ -61,10 +78,28 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealResponse>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
 
-            return mealContainer?.Meals.Select(meal => meal?.Name).Take(count).ToList()!;
+            if (mealContainer == null)
+            {
+                // can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
+                mealContainer.Meals = new List<Meal>();
+            }
+            else
+            {
+                mealContainer.Meals = mealContainer.Meals.Take(count).ToList();
+            }
+
+            mealContainer.Meals.ForEach(meal =>
+            {
+                var mealDetails = GetMealDetails(meal.Name).Result;
+                meal.Category = mealDetails.Category;
+                meal.Area = mealDetails.Area;
+            });
+
+            return mealContainer.Meals;
         }
+
     }
 }
 

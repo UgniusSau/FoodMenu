@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace FoodMenu.Data.Models
 {
-    public class MealResponse : Meal
+    public class FilteredMeals
     {
-        public IList<Meal> MealsByCategory { get; set; }
-        
-        public IList<Meal> MealsByArea { get; set; }
+        [JsonProperty("meals")]
+        public List<Meal> Meals { get; set; }
     }
 }
