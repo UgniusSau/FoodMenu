@@ -12,6 +12,7 @@ namespace FoodMenu.Data.Models
 {
     public class Meal
     {
+
         [JsonProperty("strMeal")]
         public string Name { get; set; }
 
@@ -20,5 +21,9 @@ namespace FoodMenu.Data.Models
 
         [JsonProperty("strArea")]
         public string Area { get; set; }
+
+        public IList<string> MealsByCategory { get; set; }
+        public IList<string> MealsByArea { get; set; }
+
     }
 }
