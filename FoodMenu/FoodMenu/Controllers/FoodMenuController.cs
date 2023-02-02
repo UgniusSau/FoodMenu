@@ -19,27 +19,20 @@ namespace FoodMenu.Controllers
         }
 
         [HttpGet("{name}")]
-        public async Task<ActionResult<MealResponse?>> GetMeal(string name)
+        public async Task<ActionResult<Meal?>> GetMeal(string name)
         {
             try
             {
-                var meal = await _mealService.GetMealDetails(name);
+                var meal = await _mealService.GetMeal(name);
                 if (meal == null)
                 {
                     return BadRequest("Meal not found.");
                 }
 
-                var mealsByCategory = await _mealService.GetMealsByCategory(meal.Category, CategoryFilteredMealLimit);
-                var mealsByArea = await _mealService.GetMealsByArea(meal.Area, AreaFilteredMealLimit);
+                meal.MealsByCategory = await _mealService.GetMealsByCategory(meal.Category, CategoryFilteredMealLimit);
+                meal.MealsByArea = await _mealService.GetMealsByArea(meal.Area, AreaFilteredMealLimit);
 
-                var mealResponse = new MealResponse
-                {
-                    Meal = meal,
-                    MealsByCategory = mealsByCategory,
-                    MealsByArea = mealsByArea
-                };
-
-                return Ok(mealResponse);
+                return Ok(meal);
             }
             catch (Exception)
             {
