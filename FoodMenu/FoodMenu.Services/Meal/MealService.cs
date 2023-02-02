@@ -29,7 +29,7 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
 
             if (mealContainer.Meals == null)
                 return null;
@@ -47,7 +47,7 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
             if (mealContainer == null)
             {
                 // can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
@@ -78,7 +78,7 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<FilteredMeals>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
 
             if (mealContainer == null)
             {
