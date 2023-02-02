@@ -34,9 +34,7 @@ namespace FoodMenu.Controllers
 
                 var mealResponse = new MealResponse
                 {
-                    Name = meal.Name,
-                    Category = meal.Category,
-                    Area = meal.Area,
+                    Meal = meal,
                     MealsByCategory = mealsByCategory,
                     MealsByArea = mealsByArea
                 };
