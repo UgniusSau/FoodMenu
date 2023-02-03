@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FoodMenu.Data.Models
 {
-    public class MealResponse
+    public class MealIncomingData
     {
         [JsonProperty("meals")]
         public List<Meal> Meals { get; set; }
