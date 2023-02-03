@@ -29,9 +29,12 @@ namespace FoodMenu.Services
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealIncomingData>(responseContent);
 
             if (mealContainer.Meals == null)
+                return null;
+
+            if (mealContainer.Meals[0].Name == null || mealContainer.Meals[0].Name == "")
                 return null;
 
             return mealContainer.Meals[0];
@@ -39,18 +42,24 @@ namespace FoodMenu.Services
 
         public async Task<IList<Meal>> GetMealsByCategory(string category, int count)
         {
+            // new List<Meal>() can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
+            if (category == null)
+            {
+               return new List<Meal>();
+            }
+
             var response = await _httpClient.GetAsync(string.Format(GetMealByCategoryLink, category));
 
             if (!response.IsSuccessStatusCode)
             {
-                return null;
+                return new List<Meal>();
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealIncomingData>(responseContent);
+            
             if (mealContainer == null)
             {
-                // can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
                 mealContainer.Meals = new List<Meal>();
             }
             else
@@ -70,19 +79,23 @@ namespace FoodMenu.Services
 
         public async Task<IList<Meal>> GetMealsByArea(string area, int count)
         {
+            // new List<Meal>() can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
+            if(area == null)
+            {
+                return new List<Meal>();
+            }
             var response = await _httpClient.GetAsync(string.Format(GetMealByAreaLink, area));
 
             if (!response.IsSuccessStatusCode)
             {
-                return null;
+                return new List<Meal>();
             }
 
             var responseContent = await response.Content.ReadAsStringAsync();
-            var mealContainer = JsonConvert.DeserializeObject<MealApiResponse>(responseContent);
+            var mealContainer = JsonConvert.DeserializeObject<MealIncomingData>(responseContent);
 
             if (mealContainer == null)
             {
-                // can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
                 mealContainer.Meals = new List<Meal>();
             }
             else
