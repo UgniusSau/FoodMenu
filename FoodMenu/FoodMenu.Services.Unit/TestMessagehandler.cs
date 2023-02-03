@@ -8,16 +8,16 @@ namespace FoodMenu.Services.Unit
 {
     public class TestMessagehandler : HttpMessageHandler
     {
-        private Queue<HttpResponseMessage> _responseMessages = new();
+        private HttpResponseMessage _responseMessage;
 
         internal void SetResponse(HttpResponseMessage responseMessage)
         {
-            _responseMessages.Enqueue(responseMessage);
+            _responseMessage = responseMessage;
         }
 
         protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_responseMessages.Dequeue());
+            return Task.FromResult(_responseMessage);
         }
     }
 }
