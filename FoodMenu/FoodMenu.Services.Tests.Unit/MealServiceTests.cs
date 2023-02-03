@@ -1,11 +1,7 @@
 using FluentAssertions;
 using FoodMenu.Data.Models;
 using Moq;
-using Newtonsoft.Json;
-using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FoodMenu.Services.Unit
 {
