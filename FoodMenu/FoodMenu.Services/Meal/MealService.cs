@@ -43,7 +43,7 @@ namespace FoodMenu.Services
         public async Task<IList<Meal>> GetMealsByCategory(string category, int count)
         {
             // new List<Meal>() can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
-            if (category == null || count == null || count == 0)
+            if (category == null || category == "" || count == null || count == 0)
             {
                return new List<Meal>();
             }
@@ -80,7 +80,7 @@ namespace FoodMenu.Services
         public async Task<IList<Meal>> GetMealsByArea(string area, int count)
         {
             // new List<Meal>() can also be created to not allocate memory Enumerable.Empty<Meal>().ToList();
-            if(area == null)
+            if (area == null || area == "" || count == null || count == 0)
             {
                 return new List<Meal>();
             }
