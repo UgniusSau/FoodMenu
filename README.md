@@ -15,4 +15,9 @@ IDE with .net 7 SDK
 6. Click "Execute".
 7. Following details will be shown under Responses tab: (Curl request, Request URL, Server response with status code and details(response body will contain information about the made request response).
 
-#Testing:
+#Testing(Tested with Visual Studio 2022):
+1. Select "Test" tab in menu bar.
+2. From drop-down menu select "Test Explorer".
+3. Window of "Test Explorer" should open up.
+4. Click first green triangle at the top right.
+5. Tests will run and output will be shown in "Test Explorer" tab.
